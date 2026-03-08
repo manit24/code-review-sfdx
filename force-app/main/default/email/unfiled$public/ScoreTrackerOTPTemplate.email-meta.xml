@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>OTP template for Score Tracker flow</description>
+    <encodingKey>UTF-8</encodingKey>
+    <name>Score Tracker OTP Template</name>
+    <style>none</style>
+    <subject>Your Score Tracker OTP Code</subject>
+    <textOnly>
+        &lt;html&gt;
+&lt;body&gt;
+    &lt;p&gt;Hello,&lt;/p&gt;
+    &lt;p&gt;Your OTP code is: &lt;b&gt;{!Generated_OTP}&lt;/b&gt;&lt;/p&gt;
+    &lt;p&gt;This code will expire in 10 minutes.&lt;/p&gt;
+    &lt;p&gt;Thank you!&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+    </textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

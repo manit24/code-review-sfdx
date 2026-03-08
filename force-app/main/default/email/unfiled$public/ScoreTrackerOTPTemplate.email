@@ -1,0 +1,8 @@
+<html>
+<body>
+    <p>Hello,</p>
+    <p>Your OTP code is: <b>{!Generated_OTP}</b></p>
+    <p>This code will expire in 10 minutes.</p>
+    <p>Thank you!</p>
+</body>
+</html>

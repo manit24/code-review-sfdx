@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>Area_Definition__mdt.*</members>
+        <members>Badge_Definition__mdt.*</members>
+        <members>Insight_Rule__mdt.*</members>
+        <members>Integration_Origin__mdt.*</members>
+        <members>Role__mdt.*</members>
+        <members>Responsibility__mdt.*</members>
+        <members>Score_Scale__mdt.*</members>
+        <members>Theme_Token__mdt.*</members>
+        <name>CustomMetadata</name>
+    </types>
+    <types>
+        <members>Meeting_Request__c</members>
+        <members>Scorecard_Entry__c</members>
+        <members>Scorecard__c</members>
+        <name>CustomObject</name>
+    </types>
+    <version>60.0</version>
+</Package>

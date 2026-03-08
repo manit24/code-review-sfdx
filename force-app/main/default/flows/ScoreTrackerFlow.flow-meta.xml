@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+    <name>Send_OTP_Email</name>
+    <label>Send OTP Email</label>
+        <locationX>578</locationX>
+        <locationY>539</locationY>
+    <actionName>emailSimple</actionName>
+    <actionType>emailSimple</actionType>
+    <inputParameters>
+        <name>emailAddresses</name>
+        <value>
+            <elementReference>Employee_Email1</elementReference>
+        </value>
+    </inputParameters>
+    <!-- Ensure at least one recipient parameter is present -->
+</actionCalls>
+    <apiVersion>65.0</apiVersion>
+    <assignments>
+        <name>Generate_OTP</name>
+        <label>Generate OTP</label>
+        <locationX>578</locationX>
+        <locationY>335</locationY>
+        <assignmentItems>
+            <assignToReference>Generated_OTP</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <numberValue>123456.0</numberValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Send_OTP_Email</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <name>Verify_OTP</name>
+        <label>Verify OTP</label>
+        <locationX>578</locationX>
+        <locationY>743</locationY>
+        <defaultConnector>
+            <targetReference>Invalid_OTP_Screen</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Incorrect</defaultConnectorLabel>
+        <rules>
+            <name>OTP_Correct</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Entered_OTP</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Generated_OTP</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Data_Entry_Screen</targetReference>
+            </connector>
+            <label>Correct</label>
+        </rules>
+    </decisions>
+    <environments>Default</environments>
+    <formulas>
+        <name>Generate_OTP_Formula</name>
+        <expression>ABS(MOD(VALUE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(TEXT(NOW()),":",""),"-","")," ","")), 1000000))</expression>
+    </formulas>
+    <interviewLabel>Score Tracker Flow {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Score Tracker Flow</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilder</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <runInMode>SystemModeWithoutSharing</runInMode>
+    <recordCreates>
+        <name>Create_Score_Record</name>
+        <label>Create Score Record</label>
+        <locationX>578</locationX>
+        <locationY>1055</locationY>
+        <inputAssignments>
+            <field>Employee_Email__c</field>
+            <value>
+                <elementReference>Employee_Email</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Employee_First_Name__c</field>
+            <value>
+                <elementReference>Employee_First_Name</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Employee_Last_Name__c</field>
+            <value>
+                <elementReference>Employee_Last_Name</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Expertise_Attribute__c</field>
+            <value>
+                <stringValue>Platform Expertise</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Score_Value__c</field>
+            <value>
+                <elementReference>Score_Value</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Submission_Date__c</field>
+            <value>
+                <elementReference>$Flow.CurrentDateTime</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Score_Tracker__c</object>
+    </recordCreates>
+    <screens>
+        <name>Data_Entry_Screen</name>
+        <label>Data Entry Screen</label>
+        <locationX>578</locationX>
+        <locationY>935</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Create_Score_Record</targetReference>
+        </connector>
+        <fields>
+            <name>Score_Value1</name>
+            <dataType>Number</dataType>
+            <fieldText>Score Value</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+            <scale>0</scale>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Identity_Screen</name>
+        <label>Identity Screen</label>
+        <locationX>578</locationX>
+        <locationY>107</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Generate_OTP</targetReference>
+        </connector>
+        <fields>
+            <name>Employee_Email1</name>
+            <dataType>String</dataType>
+            <fieldText>Employee Email</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>Employee_First_Name1</name>
+            <dataType>String</dataType>
+            <fieldText>First Name</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>Employee_Last_Name1</name>
+            <dataType>String</dataType>
+            <fieldText>Last Name</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Invalid_OTP_Screen</name>
+        <label>Invalid OTP Screen</label>
+        <locationX>314</locationX>
+        <locationY>863</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Verification_Screen</targetReference>
+        </connector>
+       
+<fields>
+    <name>Invalid_OTP_Message</name>
+    <fieldText>The OTP you entered is incorrect. Please try again.</fieldText>
+    <fieldType>DisplayText</fieldType>
+</fields>
+
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Verification_Screen</name>
+        <label>Verification Screen</label>
+        <locationX>578</locationX>
+        <locationY>623</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Verify_OTP</targetReference>
+        </connector>
+        <fields>
+            <name>Entered_OTP</name>
+            <dataType>Number</dataType>
+            <fieldText>Enter OTP</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+            <scale>0</scale>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <start>
+        <locationX>452</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Identity_Screen</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <variables>
+        <name>Employee_Email</name>
+        <dataType>Email</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>Employee_First_Name</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>Employee_Last_Name</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>Generated_OTP</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>0</scale>
+    </variables>
+    <variables>
+        <name>Score_Value</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>0</scale>
+    </variables>
+</Flow>

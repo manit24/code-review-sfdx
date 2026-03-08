@@ -1,0 +1,5 @@
+fastmcp
+reportlab
+weasyprint
+python-dotenv
+httpx
