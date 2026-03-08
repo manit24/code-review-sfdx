@@ -1,6 +1,6 @@
 import os
 import httpx
-from mcp.server.fastmcp import FastMCP
+from fastmcp import FastMCP
 from typing import Optional, List
 import re
  
