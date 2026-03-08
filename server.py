@@ -235,14 +235,10 @@ async def list_apex_methods(file_path: str) -> str:
 # ─────────────────────────────────────────────────────────
  
 # Entry point
-"""
 if __name__ == "__main__":
-    mcp.run(transport="streamable-http")
+    import sys
+    if "--stdio" in sys.argv:
+        mcp.run(transport="stdio")
+    else:
+        mcp.run(transport="streamable-http")
 
-"""
-
-# ─────────────────────────────────────────────────────────
-# ✅ Factory function (safe for Horizon / Prefect import)
-# ─────────────────────────────────────────────────────────
-def create_server():
-    return mcp
