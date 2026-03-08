@@ -3,3 +3,4 @@ reportlab
 weasyprint
 python-dotenv
 httpx
+prefect

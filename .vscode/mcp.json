@@ -1,17 +1,5 @@
 {
   "servers": {
-    "sapient-reviewer": {
-      "type": "stdio",
-      "command": "C:\\vscode\\AI_Learning\\code-review-mcp\\.venv\\Scripts\\python.exe",
-      
-      "args": ["C:\\vscode\\AI_Learning\\code-review-mcp\\agent1-reviewer.py"]
-    },
-    "sapient-summarizer": {
-      "type": "stdio",
-      "command": "C:\\vscode\\AI_Learning\\code-review-mcp\\.venv\\Scripts\\python.exe", 
-      "args": ["C:\\vscode\\AI_Learning\\code-review-mcp\\agent2-summarizer.py"]
-    },
-
     "Salesforce DX": {
             "command": "npx",
             "args": [
@@ -24,8 +12,14 @@
                 "--tools", "run_apex_test",
                 "--allow-non-ga-tools"
             ]
-        }
-
+        },
+        "Horizon code-review-sfdx": {
+      "type": "http",
+      "url": "https://code-review-sfdx.fastmcp.app/mcp",
+      "headers": {
+        "Authorization": "Bearer fmcp_oIOcOwNaBIp_3SptJyuJVfu9aO-Kkkeif-lr38EsIzI"
+      }
+    }
   }
 }
 
