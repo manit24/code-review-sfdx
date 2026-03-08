@@ -1,6 +1,18 @@
 {
   "servers": {
-    
+    "Salesforce DX": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@salesforce/mcp@latest",
+                "--orgs",
+                "lwcrecipies",
+                "--toolsets",
+                "orgs,metadata,data,users,testing,lwc-experts,code-analysis",
+                "--tools", "run_apex_test",
+                "--allow-non-ga-tools"
+            ]
+        },
         "Horizon code-review-sfdx": {
       "type": "http",
       "url": "https://code-review-sfdx.fastmcp.app/mcp",
